@@ -47,7 +47,7 @@ EWordStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 
 		return EWordStatus::Not_Isogram;
 	}
-	else if (false) { // if the guess inst all lowercase return an error
+	else if (!IsLowercase(Guess)) { // if the guess inst all lowercase return an error
 
 		return EWordStatus::Not_Lowercase;
 	}
@@ -94,7 +94,37 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 	return BullCowCount;
 }
 
-bool FBullCowGame::IsIsogram(FString) const
+bool FBullCowGame::IsIsogram(FString Word) const
 {
+	// treat 0 and 1 letter words as isograms
+	if (Word.length() <= 1) { return true;  }
+
+	TMap<char, bool> LetterSeen; // setup our map
+	for (auto Letter : Word) {
+		Letter = tolower(Letter);
+		if (LetterSeen[Letter]) {
+			return false;
+		}
+		else {
+			LetterSeen[Letter] = true;
+		}
+	}
+
+	// loop through all the letters of the word
+		// if the letter is in the map
+			// we do NOT have an isogram
+		// otherwise
+			// add the letter to the map as seen
+
+	return true;
+}
+
+bool FBullCowGame::IsLowercase(FString Word) const
+{
+	for (auto Letter : Word) {
+		if (!islower(Letter)) {
+			return false;
+		}
+	}
 	return true;
 }
