@@ -1,6 +1,11 @@
+/* The game logic (no view code or direct user interaction).
+   The game is a simple guess the word game. 
+*/
+
 #pragma once
 #include <string>
 
+// to make syntax Unreal friendly
 using FString = std::string;
 using int32 = int;
 
@@ -28,7 +33,7 @@ public:
 	bool IsGameWon() const;
 	EWordStatus CheckGuessValidity(FString) const;
 
-	void Reset(); // TODO make a more rich return value
+	void Reset(); 
 	
 	// counts bulls and cows, and increases try number, assuming valid guess
 	FBullCowCount SubmitValidGuess(FString);
@@ -37,7 +42,6 @@ public:
 private:
 	// see constructor for initialisation
 	int32 MyCurrentTry;
-	int32 MyMaxTries;
 	FString MyHiddenWord;
 	bool bGameIsWon;
 
